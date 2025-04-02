@@ -1,0 +1,9 @@
+- The System should allow Office Managers to register applicants' data.
+- The System should allow Office Managers to enroll patients.
+- The system should allow patients to submit, cancel, and change appointment requests.
+- The System should allow office managers to book appointments for patients.
+- The system should be able to send appointment confirmation email to patients.
+- The system should allow dentists to sign in and view their appointments.
+- The system should allow patients to sign in and view their appointments.
+- The system should limit the number of appointments for each dentist by 5 per week.
+- The system should prevent a patient from booking new appointments if they haven't paid fro the previous ones.
