@@ -2,17 +2,20 @@ package edu.miu.cs.cs489.surgeries.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "dentists")
-public class Dentist {
+@Table(name = "patients")
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dentistId;
+    private Integer patientId;
 
     @Column(nullable = false)
     @NotBlank(message = "First Name is required")
@@ -31,28 +34,35 @@ public class Dentist {
     private String phone;
 
     @Column(nullable = false)
-    @NotBlank(message = "Specialization is required")
-    private String specialization;
+    @NotNull(message = "Date of Birth is required")
+    @Past(message = "Birth date must be in the past")
+    private LocalDate dob;
 
-    @OneToMany(mappedBy = "dentist", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "addressId", nullable = false)
+    @NotNull(message = "Address is required")
+    private Address address;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
 
-    public Dentist() {}
+    public Patient() {}
 
-    public Dentist(String firstName, String lastName, String email, String phone, String specialization) {
+    public Patient(String firstName, String lastName, String email, String phone, LocalDate dob, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
-        this.specialization = specialization;
+        this.dob = dob;
+        this.address = address;
     }
 
-    public void setDentistId(Integer dentistId) {
-        this.dentistId = dentistId;
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
     }
 
-    public Integer getDentistId() {
-        return dentistId;
+    public Integer getPatientId() {
+        return patientId;
     }
 
     public String getFirstName() {
@@ -87,12 +97,20 @@ public class Dentist {
         this.phone = phone;
     }
 
-    public String getSpecialization() {
-        return specialization;
+    public LocalDate getDob() {
+        return dob;
     }
 
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public List<Appointment> getAppointments() {
@@ -105,13 +123,14 @@ public class Dentist {
 
     @Override
     public String toString() {
-        return "Dentist{" +
-                "dentistId=" + dentistId +
+        return "Patient{" +
+                "patientId=" + patientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", specialization='" + specialization + '\'' +
+                ", dob=" + dob +
+                ", address=" + address +
                 '}';
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,59 +38,159 @@ public class SurgeriescliappApplication {
     }
 
     @Bean
+    @Transactional
     CommandLineRunner commandLineRunner() {
         return args -> {
+            Address address1 = new Address(
+                    "S1",
+                    "Fairfield",
+                    "Iowa",
+                    "65584"
+            );
+
+            Address address2 = new Address(
+                    "S2",
+                    "Fairfield",
+                    "Iowa",
+                    "65584"
+            );
+
+            Address address3 = new Address(
+                    "S3",
+                    "Des Moines",
+                    "Iowa",
+                    "82359"
+            );
+
+            Address address4 = new Address(
+                    "S4",
+                    "Des Moines",
+                    "Iowa",
+                    "84469"
+            );
+
+            Address address5 = new Address(
+                    "S5",
+                    "Irving",
+                    "Texas",
+                    "75063"
+            );
+
+            Address address6 = new Address(
+                    "S6",
+                    "Irving",
+                    "Texas",
+                    "75063"
+            );
+
+            Address address7 = new Address(
+                    "S7",
+                    "Plano",
+                    "Texas",
+                    "84495"
+            );
+
+            Address address8 = new Address(
+                    "S8",
+                    "Plano",
+                    "Texas",
+                    "25164"
+            );
+
+            Address savedAddress1 = addressService.addAddress(address1).get();
+            Address savedAddress2 = addressService.addAddress(address2).get();
+            Address savedAddress3 = addressService.addAddress(address3).get();
+            Address savedAddress4 = addressService.addAddress(address4).get();
+            Address savedAddress5 = addressService.addAddress(address5).get();
+            Address savedAddress6 = addressService.addAddress(address6).get();
+            Address savedAddress7 = addressService.addAddress(address7).get();
+            Address savedAddress8 = addressService.addAddress(address8).get();
+
+
+            Address usedAddress1 = addressService.getAddressById(savedAddress1.getAddressId()).get();
+            Address usedAddress2 = addressService.getAddressById(savedAddress2.getAddressId()).get();
+            Address usedAddress3 = addressService.getAddressById(savedAddress3.getAddressId()).get();
+            Address usedAddress4 = addressService.getAddressById(savedAddress4.getAddressId()).get();
+            Address usedAddress5 = addressService.getAddressById(savedAddress5.getAddressId()).get();
+            Address usedAddress6 = addressService.getAddressById(savedAddress6.getAddressId()).get();
+            Address usedAddress7 = addressService.getAddressById(savedAddress7.getAddressId()).get();
+            Address usedAddress8 = addressService.getAddressById(savedAddress8.getAddressId()).get();
+
             Surgery surgery1 = new Surgery(
-                    "S15");
+                    "S15",
+                    "1234567898",
+                    usedAddress1);
 
             Surgery surgery2 = new Surgery(
-                    "S10");
+                    "S10",
+                    "1254896325",
+                    usedAddress2);
 
             Surgery surgery3 = new Surgery(
-                    "S13");
+                    "S13",
+                    "5846932158",
+                    usedAddress8);
 
 
             Dentist dentist1 = new Dentist(
                     "Tony",
                     "Smith",
-                    "1515474151"
+                    "tony@gmail.com",
+                    "1515474151",
+                    "sp1"
             );
 
             Dentist dentist2 = new Dentist(
                     "Helen",
                     "Pearson",
-                    "1515474151"
+                    "helen@gmail.com",
+                    "1515474151",
+                    "sp2"
             );
 
             Dentist dentist3 = new Dentist(
                     "Robin",
                     "Plevin",
-                    "1515474151"
+                    "robin@gmail.com",
+                    "1515474151",
+                    "sp3"
             );
 
 
             Patient patient1 = new Patient(
                     "Gillian",
                     "White",
-                    "1515474151"
+                    "gillian@gmail.com",
+                    "1515474151",
+                    LocalDate.of(1997, 5, 14),
+                    usedAddress3
             );
 
             Patient patient2 = new Patient(
                     "Jill",
                     "Bell",
-                    "1515474151"
+                    "jill@gmail.com",
+                    "1515474151",
+                    LocalDate.of(1999, 6, 8),
+                    usedAddress4
             );
 
             Patient patient3 = new Patient(
                     "Ian",
                     "McKay",
-                    "1515474151"
+                    "ian@gmail.com",
+                    "1515474151",
+                    LocalDate.of(1990, 9, 1),
+                    usedAddress6
             );
 
             Patient patient4 = new Patient(
                     "John",
                     "Walker",
-                    "1515474151"
+                    "joh@gmail.com",
+                    "1515474151",
+                    LocalDate.of(2000, 7, 5),
+                    usedAddress7
             );
 
 

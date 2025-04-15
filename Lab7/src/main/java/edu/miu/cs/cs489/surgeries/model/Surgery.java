@@ -23,12 +23,12 @@ public class Surgery {
     @NotBlank(message = "Phone is required")
     private String phone;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "addressId", nullable = false)
     @NotNull(message = "Address is required")
     private Address address;
 
-    @OneToMany(mappedBy = "surgery", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "surgery", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
 
 

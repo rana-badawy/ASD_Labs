@@ -1,6 +1,9 @@
 package edu.miu.cs.cs489.surgeries.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -15,28 +18,51 @@ public class Patient {
     private Integer patientId;
 
     @Column(nullable = false)
+    @NotBlank(message = "First Name is required")
     private String firstName;
 
     @Column(nullable = false)
+    @NotBlank(message = "Last Name is required")
     private String lastName;
 
+    @Column(nullable = false)
+    @NotBlank(message = "Email is required")
     private String email;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Phone is required")
     private String phone;
+
+    @Column(nullable = false)
+    @NotNull(message = "Date of Birth is required")
+    @Past(message = "Birth date must be in the past")
     private LocalDate dob;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "addressId")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "addressId", nullable = false)
+    @NotNull(message = "Address is required")
     private Address address;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Appointment> appointments;
 
     public Patient() {}
 
-    public Patient(String firstName, String lastName, String phone) {
+    public Patient(String firstName, String lastName, String email, String phone, LocalDate dob, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.phone = phone;
+        this.dob = dob;
+        this.address = address;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    public Integer getPatientId() {
+        return patientId;
     }
 
     public String getFirstName() {
