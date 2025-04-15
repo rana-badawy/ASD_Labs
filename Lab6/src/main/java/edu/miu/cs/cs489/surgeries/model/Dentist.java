@@ -34,7 +34,7 @@ public class Dentist {
     @NotBlank(message = "Specialization is required")
     private String specialization;
 
-    @OneToMany(mappedBy = "dentist", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dentist", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
 
     public Dentist() {}

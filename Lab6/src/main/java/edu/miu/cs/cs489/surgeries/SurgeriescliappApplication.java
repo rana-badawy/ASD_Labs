@@ -106,30 +106,20 @@ public class SurgeriescliappApplication {
             Address savedAddress7 = addressService.addAddress(address7).get();
             Address savedAddress8 = addressService.addAddress(address8).get();
 
-
-            Address usedAddress1 = addressService.getAddressById(savedAddress1.getAddressId()).get();
-            Address usedAddress2 = addressService.getAddressById(savedAddress2.getAddressId()).get();
-            Address usedAddress3 = addressService.getAddressById(savedAddress3.getAddressId()).get();
-            Address usedAddress4 = addressService.getAddressById(savedAddress4.getAddressId()).get();
-            Address usedAddress5 = addressService.getAddressById(savedAddress5.getAddressId()).get();
-            Address usedAddress6 = addressService.getAddressById(savedAddress6.getAddressId()).get();
-            Address usedAddress7 = addressService.getAddressById(savedAddress7.getAddressId()).get();
-            Address usedAddress8 = addressService.getAddressById(savedAddress8.getAddressId()).get();
-
             Surgery surgery1 = new Surgery(
                     "S15",
                     "1234567898",
-                    usedAddress1);
+                    savedAddress1);
 
             Surgery surgery2 = new Surgery(
                     "S10",
                     "1254896325",
-                    usedAddress2);
+                    savedAddress2);
 
             Surgery surgery3 = new Surgery(
                     "S13",
                     "5846932158",
-                    usedAddress8);
+                    savedAddress8);
 
 
             Dentist dentist1 = new Dentist(
@@ -163,7 +153,7 @@ public class SurgeriescliappApplication {
                     "gillian@gmail.com",
                     "1515474151",
                     LocalDate.of(1997, 5, 14),
-                    usedAddress3
+                    savedAddress3
             );
 
             Patient patient2 = new Patient(
@@ -172,7 +162,7 @@ public class SurgeriescliappApplication {
                     "jill@gmail.com",
                     "1515474151",
                     LocalDate.of(1999, 6, 8),
-                    usedAddress4
+                    savedAddress4
             );
 
             Patient patient3 = new Patient(
@@ -181,7 +171,7 @@ public class SurgeriescliappApplication {
                     "ian@gmail.com",
                     "1515474151",
                     LocalDate.of(1990, 9, 1),
-                    usedAddress6
+                    savedAddress6
             );
 
             Patient patient4 = new Patient(
@@ -190,7 +180,7 @@ public class SurgeriescliappApplication {
                     "joh@gmail.com",
                     "1515474151",
                     LocalDate.of(2000, 7, 5),
-                    usedAddress7
+                    savedAddress7
             );
 
 
@@ -206,7 +196,6 @@ public class SurgeriescliappApplication {
             Patient savedPatient2 = patientService.addPatient(patient2).get();
             Patient savedPatient3 = patientService.addPatient(patient3).get();
             Patient savedPatient4 = patientService.addPatient(patient4).get();
-
 
 
             Appointment appointment = new Appointment(

@@ -38,12 +38,12 @@ public class Patient {
     @Past(message = "Birth date must be in the past")
     private LocalDate dob;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "addressId", nullable = false)
     @NotNull(message = "Address is required")
     private Address address;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
 
     public Patient() {}
